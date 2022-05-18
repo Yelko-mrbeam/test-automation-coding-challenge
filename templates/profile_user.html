@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="/static/jquery3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <a href="/app/en/user/landing.html" class="btn btn-default" style="width: 100%;">Back to landing page</a>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row align-items-center py-4">
+            <div class="col-6">
+                <form onsubmit="return false" class="form-inline">
+                    <div class="form-group">
+                        <label>username</label><input id="file" type="file"/>
+                        <button id="upload" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3">
+                <form onsubmit="return false" class="form-inline">
+                    <button id="logout_button" class="btn btn-warning">Log out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#upload').click(function (event) {
+            event.preventDefault();
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'svg'];
+            var extension = $('#file').val().split('.').pop().toLowerCase();
+            if ($.inArray(extension, fileExtension) == -1) {
+                alert("Only formats are allowed : " + fileExtension.join(', '));
+            } else {
+                alert("Uploaded")
+            }
+        })
+    </script>
+    <script>
+        $('#logout_button').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/auth/logout',
+                success: function (msg) {
+                    console.log("successfully created user")
+                    window.location.href = '/app/en/user/login.html';
+                }
+            });
+        })
+    </script>
+</body>
+</html>

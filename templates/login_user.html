@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="/static/jquery3.5.1.min.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container py-4">
+        <form onsubmit="return false" class="form-inline">
+            <div class="form-group row mb-2">
+                <label for="username" class="col-2 col-form-label">Email</label>
+                <div class="col-3">
+                    <input id="username" type="text" class="form-control" placeholder="test"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="password" class="col-2 col-form-label">Password</label>
+                <div class="col-3">
+                    <input id="password" type="password" class="form-control" placeholder="test"/>
+                </div>
+            </div>
+            <button id="login" type="submit" class="btn btn-primary mb-2">Login</button>
+        </form>
+    </div>
+    <script>
+        $('#login').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json",
+                url: '/auth/login/user',
+                data: JSON.stringify({
+                    'username': $('#username').val(),
+                    'password': $('#password').val()
+                }),
+                success: function (msg) {
+                    window.location.href = '/app/en/user/landing.html';
+                }
+            });
+        })
+    </script>
+</body>
+</html>
